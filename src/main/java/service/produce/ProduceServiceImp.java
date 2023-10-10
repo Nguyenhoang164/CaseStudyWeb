@@ -14,8 +14,8 @@ public class ProduceServiceImp implements IProduceService {
     private String password = "Kamito@123";
     private String url = "jdbc:mysql://" + localhost + "/" + dbname;
     private String query_select = "call show_produce()";
-    private String query_insert = "call insert_produce(?,?,?,?,?,?,?)";
-    private String query_update = "call update_produce(?.?,?,?,?,?,?)";
+    private String query_insert = "call insert_produce(?,?,?,?,?,?)";
+    private String query_update = "call update_produce(?,?,?,?,?,?,?)";
     private String query_delete = "call delete_produce(?)";
 
 
@@ -34,7 +34,7 @@ public class ProduceServiceImp implements IProduceService {
        while (resultSet.next()){
            int id = resultSet.getInt("id");
            String name = resultSet.getString("name");
-           String houseProduct = resultSet.getString("houseProduct");
+           String houseProduct = resultSet.getString("houseProduce");
            String prize = resultSet.getString("prize");
            String status = resultSet.getString("status");
            String img = resultSet.getString("img");
@@ -54,10 +54,11 @@ public class ProduceServiceImp implements IProduceService {
         preparedStatement.setString(4,produce.getStatus());
         preparedStatement.setString(5,produce.getUrlImg());
         preparedStatement.setString(6,produce.getNote());
+
         preparedStatement.executeUpdate();
    }
    @Override
-    public void updateProduce(int id , Produce produce) throws SQLException, ClassNotFoundException {
+    public void updateProduce(Produce produce) throws SQLException, ClassNotFoundException {
         Connection connection = connection();
         PreparedStatement preparedStatement = connection.prepareStatement(query_update);
        preparedStatement.setString(1,produce.getName());
@@ -85,7 +86,7 @@ public class ProduceServiceImp implements IProduceService {
         while (resultSet.next()){
             int Id = resultSet.getInt("id");
             String name = resultSet.getString("name");
-            String houseProduct = resultSet.getString("houseProduct");
+            String houseProduct = resultSet.getString("houseProduce");
             String prize = resultSet.getString("prize");
             String status = resultSet.getString("status");
             String img = resultSet.getString("img");

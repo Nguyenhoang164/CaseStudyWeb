@@ -96,5 +96,8 @@
         <span>${requestScope['message']}</span>
     </c:if>
 </div>
+<audio autoplay>
+    <source src="/music/background/nhacnen.mp3" type="audio/mpeg">
+</audio>
 </body>
 </html>

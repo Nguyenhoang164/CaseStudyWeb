@@ -61,10 +61,10 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = userServiceImp.findUser(username);
         if (!password.equals(user.getPassword())){
-            request.setAttribute("message","loi khong trung khop");
+            request.setAttribute("message","lỗi tài khoản hoặc mật khẩu không trùng khớp , mời nhập lại");
             request.getRequestDispatcher("login/login.jsp").forward(request,response);
         }else{
-            request.getRequestDispatcher("sale/main.jsp").forward(request,response);
+            request.getRequestDispatcher("sale/welcome.jsp").forward(request,response);
         }
     }
     public void signUp(HttpServletRequest request , HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {

@@ -72,8 +72,11 @@
     <c:if test="${requestScope['message'] != null}">
         <span>${requestScope['message']}</span>
     </c:if>
-</div>
 
+</div>
+<audio autoplay>
+    <source src="/music/background/nhacnen.mp3" type="audio/mpeg">
+</audio>
 
 </body>
 </html>

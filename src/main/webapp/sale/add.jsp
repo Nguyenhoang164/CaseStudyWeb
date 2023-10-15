@@ -21,7 +21,7 @@
             max-width: 400px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #fff;
+            background: rgb(255, 255, 255,0.5);
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -97,7 +97,7 @@
             <span>${requestScope['message']}</span>
         </c:if>
     </form>
-    <a href="sales" style="text-decoration: none">Back</a>
+    <a href="sales?action=back" style="text-decoration: none">Back</a>
 </div>
 <audio autoplay>
     <source src="/music/background/Blue%20Archive%20OST%2015.%20Honey%20Jam.mp4" type="audio/mpeg">

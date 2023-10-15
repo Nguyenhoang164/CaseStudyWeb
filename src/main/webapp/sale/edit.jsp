@@ -23,7 +23,8 @@
             margin: 0 auto;
             padding: 20px;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgb(252, 252, 252);
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .form-group {
@@ -89,7 +90,7 @@
         </div>
         <div class="form-group">
             <button type="submit" value="update">Lưu</button>
-            <a href="sales" style="text-decoration: none">Back</a>
+            <a href="sales?action=back" style="text-decoration: none">Back</a>
         </div>
         <c:if test="${requestScope['message'] != null}">
             <span>${requestScope['message']}</span>

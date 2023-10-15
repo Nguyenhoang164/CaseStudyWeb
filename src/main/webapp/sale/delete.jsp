@@ -62,14 +62,11 @@
         </div>
         <div class="form-group">
             <button type="submit" value="delete">Xóa</button>
-            <a href="sales" style="text-decoration: none">Back</a>
+            <a href="sales?action=back" style="text-decoration: none">Back</a>
         </div>
     </form>
     <c:if test="${requestScope['message'] != null}">
         <span>${requestScope['message']}</span>
-    </c:if>
-    <c:if test="${requestScope['message'] == null}">
-        <span>loi khong ton tai</span>
     </c:if>
 </div>
 <audio autoplay>

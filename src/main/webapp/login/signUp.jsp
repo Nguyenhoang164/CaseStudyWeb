@@ -11,10 +11,12 @@
 <html>
 <head>
     <title>Đăng ký</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: url("https://c4.wallpaperflare.com/wallpaper/466/8/851/blue-archive-hd-wallpaper-preview.jpg") no-repeat fixed;
+            background-size: 100% 100% ;
         }
 
         .container {
@@ -89,7 +91,7 @@
         </div>
         <div class="form-group">
             <button type="submit" value="signUp">Đăng ký</button>
-            <a href="login">Back to login</a>
+            <a href="login"><i class="bi bi-skip-backward-fill"></i></a>
         </div>
     </form>
     <c:if test="${requestScope['message'] != null}">

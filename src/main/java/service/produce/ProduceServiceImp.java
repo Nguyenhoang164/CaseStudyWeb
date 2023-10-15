@@ -13,10 +13,10 @@ public class ProduceServiceImp implements IProduceService {
     private String username = "root";
     private String password = "Kamito@123";
     private String url = "jdbc:mysql://" + localhost + "/" + dbname;
-    private String query_select = "call show_produce()";
-    private String query_insert = "call insert_produce(?,?,?,?,?,?)";
-    private String query_update = "call update_produce(?,?,?,?,?,?,?)";
-    private String query_delete = "call delete_produce(?)";
+    private final String query_select = "call show_produce()";
+    private final String query_insert = "call insert_produce(?,?,?,?,?,?)";
+    private final String query_update = "call update_produce(?,?,?,?,?,?,?)";
+    private final String query_delete = "call delete_produce(?)";
 
 
     public Connection connection() throws ClassNotFoundException, SQLException {
@@ -45,7 +45,7 @@ public class ProduceServiceImp implements IProduceService {
        return list;
    }
    @Override
-    public void addProduce(Produce produce) throws SQLException, ClassNotFoundException {
+    public void addProduct(Produce produce) throws SQLException, ClassNotFoundException {
         Connection connection = connection();
         PreparedStatement preparedStatement = connection.prepareStatement(query_insert);
         preparedStatement.setString(1,produce.getName());
@@ -58,7 +58,7 @@ public class ProduceServiceImp implements IProduceService {
         preparedStatement.executeUpdate();
    }
    @Override
-    public void updateProduce(Produce produce) throws SQLException, ClassNotFoundException {
+    public void updateProduct(Produce produce) throws SQLException, ClassNotFoundException {
         Connection connection = connection();
         PreparedStatement preparedStatement = connection.prepareStatement(query_update);
        preparedStatement.setString(1,produce.getName());
@@ -71,14 +71,14 @@ public class ProduceServiceImp implements IProduceService {
        preparedStatement.executeUpdate();
    }
    @Override
-    public void deleteProduce(int id) throws SQLException, ClassNotFoundException {
+    public void deleteProduct(int id) throws SQLException, ClassNotFoundException {
         Connection connection = connection();
         PreparedStatement preparedStatement = connection.prepareStatement(query_delete);
         preparedStatement.setInt(1,id);
         preparedStatement.executeUpdate();
    }
     @Override
-    public Produce findProduce(int id) throws SQLException, ClassNotFoundException {
+    public Produce findProduct(int id) throws SQLException, ClassNotFoundException {
         Connection connection = connection();
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("call find_produce('" + id +"')");
@@ -94,5 +94,24 @@ public class ProduceServiceImp implements IProduceService {
             produce = new Produce(Id,name,houseProduct,prize,status,img,note);
         }
         return produce;
+    }
+    @Override
+    public List<Produce> findProductByName(String name) throws SQLException, ClassNotFoundException {
+        Connection connection = connection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("call find_produce_name('" + name +"')");
+        List<Produce> list = new ArrayList<>();
+        while (resultSet.next()){
+            int Id = resultSet.getInt("id");
+            String nameProduce = resultSet.getString("name");
+            String houseProduct = resultSet.getString("houseProduce");
+            String prize = resultSet.getString("prize");
+            String status = resultSet.getString("status");
+            String img = resultSet.getString("img");
+            String note = resultSet.getString("note");
+            Produce produce = new Produce(Id,nameProduce,houseProduct,prize,status,img,note);
+            list.add(produce);
+        }
+        return list;
     }
 }

@@ -11,10 +11,12 @@
 <html>
 <head>
     <title>Đăng nhập</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: url("https://c4.wallpaperflare.com/wallpaper/466/8/851/blue-archive-hd-wallpaper-preview.jpg") no-repeat fixed;
+            background-size: 100% 100% ;
         }
 
         .container {
@@ -65,8 +67,8 @@
             <input type="password" id="password" name="password" required>
         </div>
         <div class="form-group">
-            <button type="submit">Đăng nhập</button>
-            <a href="login?action=signUp">Đăng ký</a>
+            <button type="submit" >Đăng nhập</button>
+            <a href="?action=signUp">Đăng ký</a>
         </div>
     </form>
     <c:if test="${requestScope['message'] != null}">

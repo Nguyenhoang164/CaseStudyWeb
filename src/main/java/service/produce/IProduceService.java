@@ -7,9 +7,10 @@ import java.util.List;
 
 public interface IProduceService {
     List<Produce> showList() throws SQLException, ClassNotFoundException;
-    void addProduce(Produce produce) throws SQLException, ClassNotFoundException;
-    void updateProduce( Produce produce) throws SQLException, ClassNotFoundException;
-    void deleteProduce(int id) throws SQLException, ClassNotFoundException;
-    Produce findProduce(int id) throws SQLException, ClassNotFoundException;
+    void addProduct(Produce produce) throws SQLException, ClassNotFoundException;
+    void updateProduct( Produce produce) throws SQLException, ClassNotFoundException;
+    void deleteProduct(int id) throws SQLException, ClassNotFoundException;
+    Produce findProduct(int id) throws SQLException, ClassNotFoundException;
+    List<Produce> findProductByName(String name) throws SQLException, ClassNotFoundException;
 
 }

@@ -1,6 +1,7 @@
 package controler;
 
 import model.Produce;
+import model.User;
 import service.produce.ProduceServiceImp;
 
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ import java.util.List;
 @WebServlet(name = "SaleServlet" , value = "/sales")
 public class SaleServlet extends HttpServlet {
     public static ProduceServiceImp produceServiceImp = new ProduceServiceImp();
-public static List<Produce> list = new ArrayList<>();
+      public static List<Produce> list = new ArrayList<>();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -26,43 +27,59 @@ public static List<Produce> list = new ArrayList<>();
         }
         try {
             switch (action){
+                case "back":
+                    showFormAdmin(req,resp);
+                    break;
                 case "check":
-                  FormBuyCheck(req,resp);
+                 showFormBuyCheck(req,resp);
                     break;
                 case "buy":
-                FormBuy(req,resp);
+                showFormBuy(req,resp);
                     break;
                 case "search":
-                 FormSearch(req,resp);
+                 showFormSearch(req,resp);
                     break;
                 case "add":
-                FormAdd(req,resp);
+                 showFormAdd(req,resp);
                     break;
                 case "update":
-                FormUpdate(req,resp);
+                showFormUpdate(req,resp);
                     break;
                 case "delete":
-                    FormDelete(req,resp);
+                    showFormDelete(req,resp);
+                    break;
+                case "deletePack":
+                    showFormDeleteProduct(req,resp);
+                    break;
+                case "BuyPack":
+                    showFormBuyProduct(req,resp);
                     break;
                 default:
-                    FormShow(req,resp);
+                    showFormShow(req,resp);
                     break;
             }
         }catch (SQLException | ClassNotFoundException e){
                throw new RuntimeException();
         }
     }
-   public void FormShow(HttpServletRequest request , HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
+   public void showFormShow(HttpServletRequest request , HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
        List<Produce> list = produceServiceImp.showList();
        request.setAttribute("list",list);
-       request.getRequestDispatcher("sale/main.jsp").forward(request,response);
+       request.getRequestDispatcher("client/main.jsp").forward(request,response);
+
    }
-   public void FormBuyCheck(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("sale/pack.jsp").forward(request,response);
+    public void showFormAdmin(HttpServletRequest request , HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        List<Produce> list = produceServiceImp.showList();
+        request.setAttribute("list",list);
+        request.getRequestDispatcher("sale/admin.jsp").forward(request,response);
+
+    }
+   public void showFormBuyCheck(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("client/pack.jsp").forward(request,response);
    }
-   public void FormBuy(HttpServletRequest request , HttpServletResponse response) throws SQLException, ClassNotFoundException, IOException, ServletException {
+   public void showFormBuy(HttpServletRequest request , HttpServletResponse response) throws SQLException, ClassNotFoundException, IOException, ServletException {
        int id = Integer.parseInt(request.getParameter("id"));
-       Produce produce = produceServiceImp.findProduce(id);
+       Produce produce = produceServiceImp.findProduct(id);
        list.add(produce);
        int count = 0;
        for (Produce product: list) {
@@ -71,20 +88,69 @@ public static List<Produce> list = new ArrayList<>();
        HttpSession session = request.getSession();
        session.setAttribute("list",list);
        session.setAttribute("count",count);
-       request.getRequestDispatcher("sale/pack.jsp").forward(request,response);
+       request.getRequestDispatcher("client/pack.jsp").forward(request,response);
    }
-   public void FormAdd(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+    public void showFormDeleteProduct(HttpServletRequest request , HttpServletResponse response) throws SQLException, ClassNotFoundException, IOException, ServletException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Produce produceToRemove = null;
+
+        // Tìm đối tượng produce có id tương ứng trong mảng list
+        for (Produce produce : list) {
+            if (produce.getId() == id) {
+                produceToRemove = produce;
+                break;
+            }
+        }
+
+        // Xóa đối tượng produce khỏi mảng list (nếu tìm thấy)
+        if (produceToRemove != null) {
+            list.remove(produceToRemove);
+        }
+
+        int count = list.size(); // Cập nhật số lượng sản phẩm trong mảng list
+
+        HttpSession session = request.getSession();
+        session.setAttribute("list", list);
+        session.setAttribute("count", count);
+        request.getRequestDispatcher("client/pack.jsp").forward(request, response);
+    }
+    public void showFormBuyProduct(HttpServletRequest request , HttpServletResponse response) throws SQLException, ClassNotFoundException, IOException, ServletException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Produce produceToRemove = null;
+
+        // Tìm đối tượng produce có id tương ứng trong mảng list
+        for (Produce produce : list) {
+            if (produce.getId() == id) {
+                produceToRemove = produce;
+                break;
+            }
+        }
+
+        // Xóa đối tượng produce khỏi mảng list (nếu tìm thấy)
+        if (produceToRemove != null) {
+            list.remove(produceToRemove);
+        }
+
+        int count = list.size(); // Cập nhật số lượng sản phẩm trong mảng list
+
+        HttpSession session = request.getSession();
+        session.setAttribute("list", list);
+        session.setAttribute("count", count);
+        request.setAttribute("messageBuy","buy complete");
+        request.getRequestDispatcher("client/pack.jsp").forward(request, response);
+    }
+   public void showFormAdd(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("sale/add.jsp").forward(request,response);
 
    }
-    public void FormUpdate(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+    public void showFormUpdate(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("sale/edit.jsp").forward(request,response);
 
     }
-    public void FormSearch(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("sale/search.jsp").forward(request,response);
+    public void showFormSearch(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("client/search.jsp").forward(request,response);
     }
-    public void FormDelete(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
+    public void showFormDelete(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("sale/delete.jsp").forward(request,response);
     }
     @Override
@@ -105,6 +171,7 @@ public static List<Produce> list = new ArrayList<>();
                     deleteProduct(req,resp);
                     break;
                 case "search":
+                    searchProduct(req,resp);
                     break;
                 default:
                     break;
@@ -115,10 +182,20 @@ public static List<Produce> list = new ArrayList<>();
     }
     public void deleteProduct(HttpServletRequest request , HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        produceServiceImp.deleteProduce(id);
-        request.setAttribute("message","xoa thanh cong");
-        request.getRequestDispatcher("sale/delete.jsp").forward(request,response);
-
+        if (produceServiceImp.findProduct(id) != null){
+            produceServiceImp.deleteProduct(id);
+            request.setAttribute("message","delete complete");
+            request.getRequestDispatcher("sale/delete.jsp").forward(request,response);
+        }else {
+            request.setAttribute("message", "false");
+            request.getRequestDispatcher("sale/delete.jsp").forward(request, response);
+        }
+    }
+    public void searchProduct(HttpServletRequest request , HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        String name = request.getParameter("name");
+        List<Produce> result = produceServiceImp.findProductByName(name);
+        request.setAttribute("list",result);
+        request.getRequestDispatcher("client/search.jsp").forward(request,response);
     }
     public void addProduct(HttpServletRequest request , HttpServletResponse response) throws SQLException, ClassNotFoundException, ServletException, IOException {
         String name = request.getParameter("name");
@@ -128,8 +205,8 @@ public static List<Produce> list = new ArrayList<>();
         String urlImg = request.getParameter("urlImg");
         String note = request.getParameter("note");
         Produce produce = new Produce(name,houseProduct,prize,status,urlImg,note);
-        produceServiceImp.addProduce(produce);
-        request.setAttribute("message","them thanh cong");
+        produceServiceImp.addProduct(produce);
+        request.setAttribute("message","add complete");
         request.getRequestDispatcher("sale/add.jsp").forward(request,response);
 
     }
@@ -142,8 +219,8 @@ public static List<Produce> list = new ArrayList<>();
         String note = request.getParameter("note");
         int id = Integer.parseInt(request.getParameter("id"));
         Produce produce = new Produce(id,name,houseProduct,prize,status,urlImg,note);
-        produceServiceImp.updateProduce(produce);
-        request.setAttribute("message","update thanh cong");
+        produceServiceImp.updateProduct(produce);
+        request.setAttribute("message","update complete");
         request.getRequestDispatcher("sale/edit.jsp").forward(request,response);
     }
 }

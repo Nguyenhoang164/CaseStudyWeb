@@ -49,7 +49,7 @@
         #left,#content, #right {
             width: 20%;
             float: left;
-            height: 1900px;
+            height: 100%;
             margin: 10px;
 
 
@@ -76,8 +76,6 @@
             background: url("https://w.wallha.com/ws/14/xupz5Ww8.jpg") no-repeat fixed;
             background-size: 100% 100% ;
             font-family: "Arial", sans-serif;
-
-
         }
         li{
             font-family: Bahnschrift, serif;
@@ -94,9 +92,17 @@
         }
 
         .footer a {
-
             text-decoration: none;
             margin: 0 10px;
+        }
+        #prizeTag{
+            float: left;
+        }
+        #imgTag{
+            border-radius: 15px;
+        }
+        body{
+
         }
     </style>
 </head>
@@ -108,7 +114,8 @@
         </div>
         <div class="banner">
             <div style="float: right">
-                <a href="login" style="text-decoration: none"><i class="bi bi-box-arrow-left"></i></a>
+                <div style="width: 150px;border-radius: 20px"><i class="bi bi-person"></i> user :${sessionScope['username']}</div>
+                <a href="login?action=logout&username=${sessionScope["username"]}" style="text-decoration: none"><i class="bi bi-box-arrow-left"> Logout</i></a>
             </div>
 
      <h1 style="font-size: 50px"><b>Sensei! Welcome to Kivotos!</b></h1>
@@ -117,26 +124,23 @@
     <br>
     <div id="head-link" style="padding-top: 10px;background: rgba(255,255,255,0.87);border-radius: 15px">
         <ul style="list-style: none;display: inline-flex;justify-content: space-between">
-            <li ><a href="sales?action=add" style="text-decoration: none;padding-left: 30px;color: #000000"><i class="bi bi-bag-plus-fill"></i> <b>Thêm mặt hàng</b></a> </li>
-            <li ><a href="sales?action=update" style="text-decoration: none;padding-left: 30px;color: #000000"><i class="bi bi-pen"></i> <b>Chỉnh sửa mặt hàng</b></a> </li>
-            <li ><a href="sales?action=delete" style="text-decoration: none;padding-left: 30px;color: #000000"><i class="bi bi-trash"></i><b>Xóa mặt hàng</b></a> </li>
             <li ><a href="sales?action=check" style="text-decoration: none;padding-left: 30px;color: #000000"><i class="bi bi-bag"></i><c:if test="${sessionScope['count'] != null}"><span style="font-size: 15px;background-color: red;color: white;border-radius:30px;width: 30px;height: 30px">${sessionScope['count']}</span></c:if>  <b style="padding-left: 10px">Giỏ hàng</b></a> </li>
-            <li><a href="sales?action=search" style="text-decoration: none;padding-left: 30px;color: #000000"><i class="bi bi-search"></i><b>Tìm kiếm</b></a></li>
+            <li ><a href="sales?action=search" style="text-decoration: none;padding-left: 30px;color: #000000"><i class="bi bi-search"></i><b style="padding-left: 10px">Tìm kiếm</b></a> </li>
         </ul>
     </div>
 </header>
 <section class="content"  >
-<%--    <div id="left">--%>
-<%--&lt;%&ndash;        <img src="https://i.redd.it/v2u1c7dvb8t91.jpg " width="100%" height="1300px">&ndash;%&gt;--%>
-<%--    </div>--%>
     <div id="content" style="background: rgba(0, 0, 0, 0.5); padding-top: 10px">
         <c:forEach var="item" items="${requestScope['list']}">
-            <div style="color: #f1e1e1;height: 480px; border-radius: 15px;background:rgba(0, 0, 0, 0.5);margin: auto">
-                 <div><img src="${item.getUrlImg()}" style="width: 180px;height: 300px"></div>
-                  <div><h3>${item.getName()}</h3></div>
-                 <div><p>${item.getHouseProduce()}</p></div>
-                 <div> <p>${item.getPrize()} <img src="https://files.cults3d.com/uploaders/19685247/illustration-file/b23a78c1-14ed-435d-92b1-1eb38e7712a6/1658060193.png" style="width:20px;height: 30px"></p></div>
-                 <div><button style="background-color: #4caf50"><a href="sales?action=buy&id=${item.getId()}" style="text-decoration: none;color: white">Buy</a></button></div>
+            <div style="color: #f1e1e1;height: 480px; border-radius: 15px;background:rgba(0, 0, 0, 0.5);margin: 2.5%;text-align: center">
+                 <div id="imgTag"><img src="${item.getUrlImg()}" style="width: 180px;height: 300px"></div>
+                  <div id="nameTag"><h3>${item.getName()}</h3></div>
+                 <div id="houseProduceTag"><p>${item.getHouseProduce()}</p></div>
+                <div style="display: inline-flex;justify-content: space-between">
+                    <div id="prizeTag"> <p>${item.getPrize()}</p></div>
+                    <div style="float: right;padding-top: 8px;padding-left: 2px" > <img src="https://files.cults3d.com/uploaders/19685247/illustration-file/b23a78c1-14ed-435d-92b1-1eb38e7712a6/1658060193.png" style="width:20px;height: 30px"></div>
+                </div>
+                <div id="buttonTag"><button style="background-color: #4caf50"><a href="sales?action=buy&id=${item.getId()}" style="text-decoration: none;color: white">Buy</a></button></div>
             </div>
 
         </c:forEach>

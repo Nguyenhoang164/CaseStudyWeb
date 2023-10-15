@@ -10,9 +10,9 @@ public class UserServiceImp implements IUserService{
     private String username = "root";
     private String password = "Kamito@123";
     private String url = "jdbc:mysql://" + localhost + "/" + dbname;
-    private String query_insert = "call insert_user(?,?,?,?,?)";
-    private String query_update = "call update_user(?,?,?,?,?,?)";
-    private String query_delete = "call insert_user(?)";
+    private final String query_insert = "call insert_user(?,?,?,?,?)";
+    private final String query_update = "call update_user(?,?,?,?,?,?)";
+    private final String query_delete = "call insert_user(?)";
     public Connection connection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection connection = DriverManager.getConnection(url,username,password);
@@ -58,13 +58,6 @@ public class UserServiceImp implements IUserService{
             user = new User(Id,username,password,permission,phone,local);
         }
         return user;
-    }
-    @Override
-    public void deleteUser(int id) throws SQLException, ClassNotFoundException {
-        Connection connection = connection();
-        PreparedStatement preparedStatement  = connection.prepareStatement(query_delete);
-        preparedStatement.setInt(1,id);
-        preparedStatement.executeUpdate();
     }
 
 }

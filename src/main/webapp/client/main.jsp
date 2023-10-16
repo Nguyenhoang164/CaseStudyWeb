@@ -136,7 +136,8 @@
                  <div id="imgTag"><img src="${item.getUrlImg()}" style="width: 180px;height: 300px"></div>
                   <div id="nameTag"><h3>${item.getName()}</h3></div>
                  <div id="houseProduceTag"><p>${item.getHouseProduce()}</p></div>
-                <div style="display: inline-flex;justify-content: space-between">
+
+                 <div style="display: inline-flex;justify-content: space-between">
                     <div id="prizeTag"> <p>${item.getPrize()}</p></div>
                     <div style="float: right;padding-top: 8px;padding-left: 2px" > <img src="https://files.cults3d.com/uploaders/19685247/illustration-file/b23a78c1-14ed-435d-92b1-1eb38e7712a6/1658060193.png" style="width:20px;height: 30px"></div>
                 </div>

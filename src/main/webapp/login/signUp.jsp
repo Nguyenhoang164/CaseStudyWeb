@@ -76,7 +76,6 @@
         <div class="form-group">
             <label for="permission">Quyền hạn:</label>
             <select id="permission" name="permission">
-                <option value="admin">Admin</option>
                 <option value="producer">Người bán hàng</option>
                 <option value="customer">Người dùng</option>
             </select>

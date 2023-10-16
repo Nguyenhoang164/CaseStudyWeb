@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Xóa đối tượng</title>
+    <title>Xóa đối tượng mặt hàng</title>
     <style>
         body {
             font-family: Arial, sans-serif;

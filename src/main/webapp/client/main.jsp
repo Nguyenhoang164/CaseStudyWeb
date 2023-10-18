@@ -46,7 +46,7 @@
 
         }
 
-        #left,#content, #right {
+        #left, #content, #right {
             width: 20%;
             float: left;
             height: 100%;
@@ -72,14 +72,17 @@
         footer {
             padding: 30px;
         }
-        body{
+
+        body {
             background: url("https://w.wallha.com/ws/14/xupz5Ww8.jpg") no-repeat fixed;
-            background-size: 100% 100% ;
+            background-size: 100% 100%;
             font-family: "Arial", sans-serif;
         }
-        li{
+
+        li {
             font-family: Bahnschrift, serif;
         }
+
         .footer {
             background: rgba(0, 0, 0, 0.5);
             padding: 20px;
@@ -95,13 +98,16 @@
             text-decoration: none;
             margin: 0 10px;
         }
-        #prizeTag{
+
+        #prizeTag {
             float: left;
         }
-        #imgTag{
+
+        #imgTag {
             border-radius: 15px;
         }
-        body{
+
+        body {
 
         }
     </style>
@@ -114,34 +120,44 @@
         </div>
         <div class="banner">
             <div style="float: right">
-                <div style="width: 150px;border-radius: 20px"><i class="bi bi-person"></i> user :${sessionScope['username']}</div>
-                <a href="login?action=logout&username=${sessionScope["username"]}" style="text-decoration: none"><i class="bi bi-box-arrow-left"> Logout</i></a>
+                <a href="login?action=logout&username=${sessionScope["username"]}" style="text-decoration: none"><i
+                        class="bi bi-box-arrow-left"> Logout</i></a>
             </div>
 
-     <h1 style="font-size: 50px"><b>Sensei! Welcome to Kivotos!</b></h1>
-            </div>
+            <h1 style="font-size: 50px"><b>Sensei! Welcome to Kivotos!</b></h1>
+        </div>
     </div>
     <br>
     <div id="head-link" style="padding-top: 10px;background: rgba(255,255,255,0.87);border-radius: 15px">
         <ul style="list-style: none;display: inline-flex;justify-content: space-between">
-            <li ><a href="sales?action=check" style="text-decoration: none;padding-left: 30px;color: #000000"><i class="bi bi-bag"></i><c:if test="${sessionScope['count'] != null}"><span style="font-size: 15px;background-color: red;color: white;border-radius:30px;width: 30px;height: 30px">${sessionScope['count']}</span></c:if>  <b style="padding-left: 10px">Giỏ hàng</b></a> </li>
-            <li ><a href="sales?action=search" style="text-decoration: none;padding-left: 30px;color: #000000"><i class="bi bi-search"></i><b style="padding-left: 10px">Tìm kiếm</b></a> </li>
+            <li><a href="sales?action=check" style="text-decoration: none;padding-left: 30px;color: #000000"><i
+                    class="bi bi-bag"></i><c:if test="${sessionScope['count'] != null}"><span
+                    style="font-size: 15px;background-color: red;color: white;border-radius:30px;width: 30px;height: 30px">${sessionScope['count']}</span></c:if>
+                <b style="padding-left: 10px">Giỏ hàng</b></a></li>
+            <li><a href="sales?action=search" style="text-decoration: none;padding-left: 30px;color: #000000"><i
+                    class="bi bi-search"></i><b style="padding-left: 10px">Tìm kiếm</b></a></li>
         </ul>
     </div>
 </header>
-<section class="content"  >
+<section class="content">
     <div id="content" style="background: rgba(0, 0, 0, 0.5); padding-top: 10px">
         <c:forEach var="item" items="${requestScope['list']}">
             <div style="color: #f1e1e1;height: 480px; border-radius: 15px;background:rgba(0, 0, 0, 0.5);margin: 2.5%;text-align: center">
-                 <div id="imgTag"><img src="${item.getUrlImg()}" style="width: 180px;height: 300px"></div>
-                  <div id="nameTag"><h3>${item.getName()}</h3></div>
-                 <div id="houseProduceTag"><p>${item.getHouseProduce()}</p></div>
+                <div id="imgTag"><img src="${item.getUrlImg()}" style="width: 180px;height: 300px"></div>
+                <div id="nameTag"><h3>${item.getName()}</h3></div>
+                <div id="houseProduceTag"><p>${item.getHouseProduce()}</p></div>
 
-                 <div style="display: inline-flex;justify-content: space-between">
-                    <div id="prizeTag"> <p>${item.getPrize()}</p></div>
-                    <div style="float: right;padding-top: 8px;padding-left: 2px" > <img src="https://files.cults3d.com/uploaders/19685247/illustration-file/b23a78c1-14ed-435d-92b1-1eb38e7712a6/1658060193.png" style="width:20px;height: 30px"></div>
+                <div style="display: inline-flex;justify-content: space-between">
+                    <div id="prizeTag"><p>${item.getPrize()}</p></div>
+                    <div style="float: right;padding-top: 8px;padding-left: 2px"><img
+                            src="https://files.cults3d.com/uploaders/19685247/illustration-file/b23a78c1-14ed-435d-92b1-1eb38e7712a6/1658060193.png"
+                            style="width:20px;height: 30px"></div>
                 </div>
-                <div id="buttonTag"><button style="background-color: #4caf50"><a href="sales?action=buy&id=${item.getId()}" style="text-decoration: none;color: white">Buy</a></button></div>
+                <div id="buttonTag">
+                    <button style="background-color: #4caf50"><a href="sales?action=buy&id=${item.getId()}"
+                                                                 style="text-decoration: none;color: white">Buy</a>
+                    </button>
+                </div>
             </div>
 
         </c:forEach>
@@ -149,13 +165,33 @@
     </div>
 
     <div id="right">
-        <div style="padding-bottom: 5px;font-size: 20px"><b><a href="https://www.youtube.com/@mo2bluearchive" style="text-decoration: none;color: black"> Top video last month</a></b></div>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/AqBVDJDB0ps?si=FkG8x5E1zDHYRiSe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px"></iframe>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/ptSHzas31-U?si=dDCIb5P-bovMZY69" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px" ></iframe>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/ZpRYJwPFbWY?si=DjPU00fCyXFXh_W6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px"></iframe>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/DNpVcwjD1S8?si=gSPW08dNiHlKVdDD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px"></iframe>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/JhWiVeXf2JM?si=_ws7GZZ5-OXBW-DC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px"></iframe>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/pEg_d2f6myw?si=fIPEzHrGXnIvM9AC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px"></iframe>
+        <div style="padding-bottom: 5px;font-size: 20px"><b><a href="https://www.youtube.com/@mo2bluearchive"
+                                                               style="text-decoration: none;color: black"> Top video
+            last month</a></b></div>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/AqBVDJDB0ps?si=FkG8x5E1zDHYRiSe"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px"></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ptSHzas31-U?si=dDCIb5P-bovMZY69"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px"></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ZpRYJwPFbWY?si=DjPU00fCyXFXh_W6"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px"></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/DNpVcwjD1S8?si=gSPW08dNiHlKVdDD"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px"></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/JhWiVeXf2JM?si=_ws7GZZ5-OXBW-DC"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px"></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/pEg_d2f6myw?si=fIPEzHrGXnIvM9AC"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen style="width: 100%;height: 200px;padding-bottom: 20px"></iframe>
     </div>
     <audio autoplay>
         <source src="/music/background/Blue%20Archive%20OST%2021.%20Midnight%20Trip.mp4" type="audio/mpeg">

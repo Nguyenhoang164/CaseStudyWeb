@@ -21,69 +21,74 @@ public class ProduceServiceImp implements IProduceService {
 
     public Connection connection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection = DriverManager.getConnection(url,username,password);
+        Connection connection = DriverManager.getConnection(url, username, password);
         return connection;
     }
-   @Override
+
+    @Override
     public List<Produce> showList() throws SQLException, ClassNotFoundException {
         Connection connection = connection();
-       Statement statement = connection.createStatement();
-       ResultSet resultSet = statement.executeQuery(query_select);
-       List<Produce> list = new ArrayList<>();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query_select);
+        List<Produce> list = new ArrayList<>();
 
-       while (resultSet.next()){
-           int id = resultSet.getInt("id");
-           String name = resultSet.getString("name");
-           String houseProduct = resultSet.getString("houseProduce");
-           String prize = resultSet.getString("prize");
-           String status = resultSet.getString("status");
-           String img = resultSet.getString("img");
-           String note = resultSet.getString("note");
-           Produce produce = new Produce(id,name,houseProduct,prize,status,img,note);
-           list.add(produce);
-       }
-       return list;
-   }
-   @Override
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("name");
+            String houseProduct = resultSet.getString("houseProduce");
+            String prize = resultSet.getString("prize");
+            String status = resultSet.getString("status");
+            String img = resultSet.getString("img");
+            String note = resultSet.getString("note");
+            Produce produce = new Produce(id, name, houseProduct, prize, status, img, note);
+            list.add(produce);
+        }
+        return list;
+    }
+
+    @Override
     public void addProduct(Produce produce) throws SQLException, ClassNotFoundException {
         Connection connection = connection();
         PreparedStatement preparedStatement = connection.prepareStatement(query_insert);
-        preparedStatement.setString(1,produce.getName());
-        preparedStatement.setString(2,produce.getHouseProduce());
-        preparedStatement.setString(3,produce.getPrize());
-        preparedStatement.setString(4,produce.getStatus());
-        preparedStatement.setString(5,produce.getUrlImg());
-        preparedStatement.setString(6,produce.getNote());
+        preparedStatement.setString(1, produce.getName());
+        preparedStatement.setString(2, produce.getHouseProduce());
+        preparedStatement.setString(3, produce.getPrize());
+        preparedStatement.setString(4, produce.getStatus());
+        preparedStatement.setString(5, produce.getUrlImg());
+        preparedStatement.setString(6, produce.getNote());
 
         preparedStatement.executeUpdate();
-   }
-   @Override
+    }
+
+    @Override
     public void updateProduct(Produce produce) throws SQLException, ClassNotFoundException {
         Connection connection = connection();
         PreparedStatement preparedStatement = connection.prepareStatement(query_update);
-       preparedStatement.setString(1,produce.getName());
-       preparedStatement.setString(2,produce.getHouseProduce());
-       preparedStatement.setString(3,produce.getPrize());
-       preparedStatement.setString(4,produce.getStatus());
-       preparedStatement.setString(5,produce.getUrlImg());
-       preparedStatement.setString(6,produce.getNote());
-       preparedStatement.setInt(7,produce.getId());
-       preparedStatement.executeUpdate();
-   }
-   @Override
+        preparedStatement.setString(1, produce.getName());
+        preparedStatement.setString(2, produce.getHouseProduce());
+        preparedStatement.setString(3, produce.getPrize());
+        preparedStatement.setString(4, produce.getStatus());
+        preparedStatement.setString(5, produce.getUrlImg());
+        preparedStatement.setString(6, produce.getNote());
+        preparedStatement.setInt(7, produce.getId());
+        preparedStatement.executeUpdate();
+    }
+
+    @Override
     public void deleteProduct(int id) throws SQLException, ClassNotFoundException {
         Connection connection = connection();
         PreparedStatement preparedStatement = connection.prepareStatement(query_delete);
-        preparedStatement.setInt(1,id);
+        preparedStatement.setInt(1, id);
         preparedStatement.executeUpdate();
-   }
+    }
+
     @Override
     public Produce findProduct(int id) throws SQLException, ClassNotFoundException {
         Connection connection = connection();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("call find_produce('" + id +"')");
+        ResultSet resultSet = statement.executeQuery("call find_produce('" + id + "')");
         Produce produce = new Produce();
-        while (resultSet.next()){
+        while (resultSet.next()) {
             int Id = resultSet.getInt("id");
             String name = resultSet.getString("name");
             String houseProduct = resultSet.getString("houseProduce");
@@ -91,17 +96,18 @@ public class ProduceServiceImp implements IProduceService {
             String status = resultSet.getString("status");
             String img = resultSet.getString("img");
             String note = resultSet.getString("note");
-            produce = new Produce(Id,name,houseProduct,prize,status,img,note);
+            produce = new Produce(Id, name, houseProduct, prize, status, img, note);
         }
         return produce;
     }
+
     @Override
     public List<Produce> findProductByName(String name) throws SQLException, ClassNotFoundException {
         Connection connection = connection();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("call find_produce_name('" + name +"')");
+        ResultSet resultSet = statement.executeQuery("call find_produce_name('" + name + "')");
         List<Produce> list = new ArrayList<>();
-        while (resultSet.next()){
+        while (resultSet.next()) {
             int Id = resultSet.getInt("id");
             String nameProduce = resultSet.getString("name");
             String houseProduct = resultSet.getString("houseProduce");
@@ -109,7 +115,7 @@ public class ProduceServiceImp implements IProduceService {
             String status = resultSet.getString("status");
             String img = resultSet.getString("img");
             String note = resultSet.getString("note");
-            Produce produce = new Produce(Id,nameProduce,houseProduct,prize,status,img,note);
+            Produce produce = new Produce(Id, nameProduce, houseProduct, prize, status, img, note);
             list.add(produce);
         }
         return list;
